@@ -8,8 +8,7 @@ things in my AP CS class.
 To run
 ------
 
-```
-tox
-source .tox/py27/bin/activate
-bin/tictactoe
-```
+::
+    tox
+    source .tox/py27/bin/activate
+    bin/tictactoe
