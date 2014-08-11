@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Play a game!{% endblock %}
+{% block content %}
+<h1>It's {{ turn }}'s turn</h1>
+<div id="board">
+  <table class="center">
+    <tr id="row1">
+      {% for j in range(3) %}
+      <td onclick="submit(0, {{ j }});" id="0{{ j }}" class="square{% if j == 1 %} v{% endif %}">{{ status['0%d'|format(j)] }}</td>
+      {% endfor %}
+    </tr>
+    <tr id="row2">
+      {% for j in range(3) %}
+      <td onclick="submit(1, {{ j }});" id="1{{ j }}" class="square h{% if j == 1 %} v{% endif %}">{{ status['1%d'|format(j)] }}</td>
+      {% endfor %}
+    </tr>
+    <tr id="row3">
+      {% for j in range(3) %}
+      <td onclick="submit(2, {{ j }});" id="2{{ j }}" class="square{% if j == 1 %} v{% endif %}">{{ status['2%d'|format(j)] }}</td>
+      {% endfor %}
+    </tr>
+  </table>
+</div>
+<form id="myform" action='' method=post>
+  {% for i in range(3) %}
+    {% for j in range(3) %}
+      <input type="hidden" id="{{ "h%d%d"|format(i, j) }}" value="{{ status['%d%d'|format(i, j)] }}" name="{{ '%d%d'|format(i, j) }}" />
+    {% endfor %}
+  {% endfor %}
+  <input type="hidden" value="{{ turn }}" name="turn" id="turn" />
+</form>
+<script type="text/javascript">
+  function submit(i, j) {
+    if (document.getElementById(("" + i) + j).innerText.length == 0) {
+      document.getElementById(("h" + i) + j).value = document.getElementById("turn").value;
+      document.getElementById("myform").submit();
+    }
+  }
+</script>
+{% endblock %}
